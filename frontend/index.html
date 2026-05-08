@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Текст + Эффекты (с ИИ)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+    <!-- ── 1️⃣ Панель управления ── -->
+    <section class="control-panel">
+        <h1>Текстовый визуализатор</h1>
+
+        <label class="field">
+            Текст:
+            <textarea id="inputText" rows="2"
+                      placeholder="Введите сюда ваш текст…"></textarea>
+        </label>
+
+        <label class="field">
+            Эффект:
+            <select id="effectSelect">
+                <!-- ИИ‑генерация ставится первой -->
+                <option value="ai">ИИ‑сгенерированный эффект</option>
+
+                <!-- Новые интерактивные эффекты -->
+                <option value="runaway">Убегать от курсора мыши</option>
+                <option value="follow">Следовать за курсором</option>
+
+                <!-- Обычные CSS‑эффекты -->
+                <option value="none">— без эффекта —</option>
+                <option value="fade">Тускнеть‑затухать</option>
+                <option value="rotate">Вращать</option>
+                <option value="scale">Масштабировать</option>
+                <option value="color">Пульсировать цвет</option>
+                <option value="bounce">Подпрыгивать</option>
+            </select>
+        </label>
+
+        <!-- Появляется только при выборе «ИИ» -->
+        <div id="aiContainer" class="field hidden">
+            <label>
+                Описание желаемого эффекта:<br>
+                <textarea id="aiPrompt" rows="2"
+                          placeholder="Например: «текст медленно вращается и меняет цвет»"></textarea>
+            </label>
+
+            <button id="generateAiBtn" class="button small">Сгенерировать CSS</button>
+
+            <!-- Кнопка показа/скрытия кода -->
+            <button id="toggleCodeBtn" class="button small hidden">Показать код</button>
+
+            <!-- Блок с самим CSS‑кодом -->
+            <pre id="aiResult" class="code hidden"></pre>
+        </div>
+
+        <button id="toggleBtn" class="button start">Старт</button>
+    </section>
+
+    <!-- ── 2️⃣ Ограниченная рабочая зона ── -->
+    <section class="workspace">
+        <div id="output" class="output"></div>
+    </section>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

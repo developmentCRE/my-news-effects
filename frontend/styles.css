@@ -1,0 +1,85 @@
+/* ── Общий сброс ── */
+*,
+*::before,
+*::after { box-sizing:border-box; margin:0; padding:0; }
+html,body { height:100%; font-family:system-ui, sans-serif; }
+body { background:#f4f4f9; color:#222; overflow:hidden; }
+
+/* ── Flex‑контейнер (панель + рабочая зона) ── */
+.app { display:flex; flex-direction:column; height:100vh; }
+
+/* ── 1️⃣ Панель управления ── */
+.control-panel {
+    flex:0 0 auto;                /* фиксированная высота, но скролл при переполнении */
+    max-height:500vh;
+    padding:1.2rem;
+    background:#fff491;
+    border-bottom:2px solid #eeff00;
+    overflow-y:auto;
+}
+.control-panel h1 { margin-bottom:.8rem; font-size:1.6rem; }
+.field { display:block; margin:.8rem 0; font-size:1rem; }
+.field textarea,
+.field select { width:100%; margin-top:.3rem; font:inherit; padding:.5rem; }
+.button {
+    display:inline-block; margin-top:.6rem; padding:.6rem 1.4rem;
+    font:inherit; font-weight:bold; color:#fff;
+    background:#2c7; border:none; cursor:pointer; border-radius:4px;
+}
+.button.start { background:#2c7; }
+.button.stop  { background:#c33; }
+.button.small { padding:.4rem .9rem; font-size:.9rem; margin-top:.5rem; }
+
+/* ── 2️⃣ ОГРАНИЧЕННАЯ РАБОЧАЯ ЗОНА ── */
+.workspace {
+    flex:1 1 auto;                       /* занимает всё, что осталось */
+    position:relative;                   /* важный контекст для абсолютного позиционирования */
+    width:100%;                          /* растягиваем на всю ширину flex‑контейнера */
+    height:100%;                         /* растягиваем на всю оставшуюся высоту */
+    margin:1rem auto;                    /* центрируем по горизонтали */
+    padding:1rem;
+    background:#b86969;                 /* ваш цвет фона */
+    border:2px solid #2b0000;           /* рамка */
+    overflow:auto;                       /* скролл, если анимация «выходит» за пределы */
+}
+
+/* Текст, который будет анимирован (по‑умолчанию центрируем через flex) */
+.output {
+    font-size:2rem;
+    line-height:1.4;
+    white-space:pre-wrap;
+    word-break:break-word;
+    /* По умолчанию позиция flex, но при интерактивных эффектах будет переопределена */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+/* ── Прячем элементы, когда их не нужно ── */
+.hidden { display:none !important; }
+
+/* ── Предустановленные (не‑ИИ) анимации ── */
+@keyframes fadeEffect    {0%{opacity:0} 50%{opacity:1} 100%{opacity:0}}
+@keyframes rotateEffect  {from{transform:rotate(0)} to{transform:rotate(360deg)}}
+@keyframes scaleEffect   {0%,100%{transform:scale(1)} 50%{transform:scale(1.5)}}
+@keyframes colorPulse   {0%{color:#ff5252} 50%{color:#42a5f5} 100%{color:#66bb6a}}
+@keyframes bounceEffect {0%,100%{transform:translateY(0)} 30%{transform:translateY(-30px)} 60%{transform:translateY(10px)}}
+
+.fade   { animation:fadeEffect    2s infinite; }
+.rotate { animation:rotateEffect  3s linear infinite; }
+.scale  { animation:scaleEffect   2s ease-in-out infinite; }
+.color  { animation:colorPulse    3s linear infinite; }
+.bounce { animation:bounceEffect   1.5s ease infinite; }
+
+/* ── Вывод кода (выпадающий блок) ── */
+.code {
+    background:#f0f0f0;
+    padding:.8rem;
+    margin-top:.5rem;
+    font-family:Consolas,monospace;
+    overflow:auto;
+    max-height:300px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
