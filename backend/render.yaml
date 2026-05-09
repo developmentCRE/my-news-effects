@@ -1,5 +1,9 @@
 services:
   - type: web
     name: my-news-effects
-    buildCommand: docker build -f backend/Dockerfile -t app .
-    dockerfilePath: backend/Dockerfile
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    buildCommand: docker build -f ./backend/Dockerfile -t app .
+    startCommand: python server.py
+    envFile: .env
+    port: 8080
