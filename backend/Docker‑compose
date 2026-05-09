@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  # -------------------------------------------------
+  # Ollama – модельный сервер
+  # -------------------------------------------------
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"        # нужен только внутренний (backend будет к нему обращаться)
+    volumes:
+      - ollama_data:/root/.ollama
+
+  # -------------------------------------------------
+  # Backend – Flask‑API + webhook‑обработчики
+  # -------------------------------------------------
+  backend:
+    build: ./backend
+    container_name: news_backend
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    env_file: .env           # хранит токены и прочие секреты (не коммитим!)
+    ports:
+      - "8080:8080"          # публичный порт (Render/Fly пробрасывает автоматически)
+    # Чтобы backend мог обращаться к Ollama по localhost:
+    environment:
+      - OLLAMA_HOST=http://ollama:11434   # (можно и без, просто используем hostname «ollama»)
+
+volumes:
+  ollama_data:
