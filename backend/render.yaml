@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: my-news-effects
+    buildCommand: docker build -f backend/Dockerfile -t app .
+    dockerfilePath: backend/Dockerfile

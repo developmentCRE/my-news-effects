@@ -18,7 +18,6 @@ services:
   # -------------------------------------------------
   backend:
     build: ./backend
-    dockerfile: Dockerfile
     container_name: news_backend
     restart: unless-stopped
     depends_on:
@@ -27,7 +26,8 @@ services:
     ports:
       - "8080:8080"          # публичный порт (Render/Fly пробрасывает автоматически)
     # Чтобы backend мог обращаться к Ollama по localhost:
-    network_mode: "service:ollama"   # (можно и без, просто используем hostname «ollama»)
+    environment:
+      - OLLAMA_HOST=http://ollama:11434   # (можно и без, просто используем hostname «ollama»)
 
 volumes:
   ollama_data:
