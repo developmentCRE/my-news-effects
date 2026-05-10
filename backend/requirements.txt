@@ -18,7 +18,7 @@ python-dotenv==1.0.1
 ollama==0.1.0
 langchain==0.1.0
 pandas==2.2.2
-pandasai==1.8.3
+pandasai==2.3.2
 osmnx==1.9.0
 plotly==5.18.0
 dash==2.16.2
